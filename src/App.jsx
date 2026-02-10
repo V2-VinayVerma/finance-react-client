@@ -14,6 +14,7 @@ import Groups from "./pages/Groups";
 import GroupExpenses from "./pages/GroupExpenses";
 import ManageUsers from "./pages/ManageUsers";
 import UnauthorizedAccess from "./components/errors/UnauthorizedAccess";
+import ProtectedRoute from "./rbac/ProtectedRoute";
 
 function App() {
     const dispatch = useDispatch();
