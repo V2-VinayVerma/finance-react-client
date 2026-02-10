@@ -2,9 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import { serverEndpoint } from "../config/appConfig";
 import { useSelector } from "react-redux";
+import { ROLE_PERMISSIONS } from "../rbac/userPermissions";
 
 function CreateGroupModal({ show, onHide, onSuccess }) {
     const user = useSelector((state) => state.userDetails);
+    const permissions = ROLE_PERMISSIONS[user?.role] || {};
     const [formData, setFormData] = useState({
         name: "",
         description: "",
@@ -83,7 +85,7 @@ function CreateGroupModal({ show, onHide, onSuccess }) {
         }
     };
 
-    if (!show) return null;
+    if (!show || !permissions.canCreateGroups) return null;
 
     return (
         <div

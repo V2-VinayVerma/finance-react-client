@@ -1,9 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ROLE_PERMISSIONS } from "../rbac/userPermissions";
 
 function UserHeader() {
     const user = useSelector((state) => state.userDetails);
     const location = useLocation();
+    const permissions = ROLE_PERMISSIONS[user?.role] || {};
 
     // Helper to set active class
     const isActive = (path) =>
@@ -85,15 +87,17 @@ function UserHeader() {
                                         {user?.email}
                                     </p>
                                 </li>
-                                <li>
-                                    <Link
-                                        className="dropdown-item py-2 fw-medium"
-                                        to="/manage-users"
-                                    >
-                                        <i className="bi bi-person-check me-2"></i>{""}
-                                        Manage Users
-                                    </Link>
-                                </li>
+                                {permissions.canViewUsers && (
+                                    <li>
+                                        <Link
+                                            className="dropdown-item py-2 fw-medium"
+                                            to="/manage-users"
+                                        >
+                                            <i className="bi bi-person-check me-2"></i>{""}
+                                            Manage Users
+                                        </Link>
+                                    </li>
+                                )}
                                 <hr className="m-0" />
                                 <li>
                                     <Link

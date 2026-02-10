@@ -135,6 +135,7 @@ function Groups() {
                     <button
                         className="btn btn-outline-primary rounded-pill px-4"
                         onClick={() => setShow(true)}
+                        disabled={!permissions.canCreateGroups}
                     >
                         Get Started
                     </button>
@@ -148,6 +149,7 @@ function Groups() {
                             <GroupCard
                                 group={group}
                                 onUpdate={handleGroupUpdateSuccess}
+                                canUpdateGroups={permissions.canUpdateGroups}
                             />
                         </div>
                     ))}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { serverEndpoint } from "../config/appConfig";
 
-function GroupCard({ group, onUpdate }) {
+function GroupCard({ group, onUpdate, canUpdateGroups }) {
     const [showMembers, setShowMembers] = useState(false);
     const [memberEmail, setMemberEmail] = useState("");
     const [errors, setErrors] = useState({});
@@ -110,26 +110,28 @@ function GroupCard({ group, onUpdate }) {
                     </div>
                 )}
 
-                <div className="mt-auto pt-3 border-top">
-                    <label className="form-label extra-small fw-bold text-uppercase text-muted mb-2">
-                        Invite a Friend
-                    </label>
-                    <div className="input-group input-group-sm">
-                        <input
-                            type="email"
-                            className="form-control bg-light border-0 px-3"
-                            placeholder="email@example.com"
-                            value={memberEmail}
-                            onChange={(e) => setMemberEmail(e.target.value)}
-                        />
-                        <button
-                            className="btn btn-primary px-3 fw-bold"
-                            onClick={handleAddMember}
-                        >
-                            Add
-                        </button>
+                {canUpdateGroups && (
+                    <div className="mt-auto pt-3 border-top">
+                        <label className="form-label extra-small fw-bold text-uppercase text-muted mb-2">
+                            Invite a Friend
+                        </label>
+                        <div className="input-group input-group-sm">
+                            <input
+                                type="email"
+                                className="form-control bg-light border-0 px-3"
+                                placeholder="email@example.com"
+                                value={memberEmail}
+                                onChange={(e) => setMemberEmail(e.target.value)}
+                            />
+                            <button
+                                className="btn btn-primary px-3 fw-bold"
+                                onClick={handleAddMember}
+                            >
+                                Add
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );

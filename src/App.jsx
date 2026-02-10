@@ -90,9 +90,11 @@ function App() {
                 path="/dashboard"
                 element={
                     userDetails ? (
-                        <UserLayout>
-                            <Groups />
-                        </UserLayout>
+                        <ProtectedRoute requiredPermission="canViewGroups">
+                            <UserLayout>
+                                <Groups />
+                            </UserLayout>
+                        </ProtectedRoute>
                     ) : (
                         <Navigate to="/login" />
                     )
@@ -103,9 +105,11 @@ function App() {
                 path="/groups/:groupId"
                 element={
                     userDetails ? (
-                        <UserLayout>
-                            <GroupExpenses />
-                        </UserLayout>
+                        <ProtectedRoute requiredPermission="canViewGroups">
+                            <UserLayout>
+                                <GroupExpenses />
+                            </UserLayout>
+                        </ProtectedRoute>
                     ) : (
                         <Navigate to="/login" />
                     )
@@ -116,7 +120,7 @@ function App() {
                 path="/manage-users"
                 element={
                     userDetails ? (
-                        <ProtectedRoute roles={["admin"]}>
+                        <ProtectedRoute requiredPermission="canViewUsers">
                             <UserLayout>
                                 <ManageUsers />
                             </UserLayout>
