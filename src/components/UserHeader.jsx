@@ -7,7 +7,6 @@ function UserHeader() {
     const location = useLocation();
     const permissions = ROLE_PERMISSIONS[user?.role] || {};
 
-    // Helper to set active class
     const isActive = (path) =>
         location.pathname === path
             ? "active fw-bold text-primary"
@@ -34,22 +33,12 @@ function UserHeader() {
                 </button>
 
                 <div className="collapse navbar-collapse" id="userNavbar">
-                    {/* Primary App Navigation */}
+                    {/* Left Nav */}
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        {/* <li className="nav-item">
-                            <Link
-                                className={`nav-link px-3 ${isActive(
-                                    "/dashboard"
-                                )}`}
-                                to="/dashboard"
-                            >
-                                <i className="bi bi-speedometer2 me-1"></i>{" "}
-                                Groups
-                            </Link>
-                        </li> */}
+                        {/* Future nav items */}
                     </ul>
 
-                    {/* User Profile Dropdown */}
+                    {/* User Dropdown */}
                     <ul className="navbar-nav ms-auto align-items-center">
                         <li className="nav-item dropdown">
                             <Link
@@ -72,9 +61,10 @@ function UserHeader() {
                                         : "U"}
                                 </div>
                                 <span className="text-dark fw-medium small">
-                                    {user ? user.name : "Account"}
+                                    {user?.name || "Account"}
                                 </span>
                             </Link>
+
                             <ul className="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2 rounded-3">
                                 <li
                                     className="px-3 py-2 border-bottom mb-1"
@@ -87,24 +77,39 @@ function UserHeader() {
                                         {user?.email}
                                     </p>
                                 </li>
+
                                 {permissions.canViewUsers && (
-                                    <li>
-                                        <Link
-                                            className="dropdown-item py-2 fw-medium"
-                                            to="/manage-users"
-                                        >
-                                            <i className="bi bi-person-check me-2"></i>{""}
-                                            Manage Users
-                                        </Link>
-                                    </li>
+                                    <>
+                                        <li>
+                                            <Link
+                                                className="dropdown-item py-2 fw-medium"
+                                                to="/manage-users"
+                                            >
+                                                <i className="bi bi-person-check me-2"></i>
+                                                Manage Users
+                                            </Link>
+                                        </li>
+
+                                        <li>
+                                            <Link
+                                                className="dropdown-item py-2 fw-medium"
+                                                to="/manage-payments"
+                                            >
+                                                <i className="bi bi-credit-card me-2"></i>
+                                                Payments and Subscription
+                                            </Link>
+                                        </li>
+                                    </>
                                 )}
+
                                 <hr className="m-0" />
+
                                 <li>
                                     <Link
                                         className="dropdown-item py-2 text-danger fw-medium"
                                         to="/logout"
                                     >
-                                        <i className="bi bi-box-arrow-right me-2"></i>{" "}
+                                        <i className="bi bi-box-arrow-right me-2"></i>
                                         Sign Out
                                     </Link>
                                 </li>
